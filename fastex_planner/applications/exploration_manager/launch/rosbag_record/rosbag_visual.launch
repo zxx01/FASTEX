@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<launch>
+
+    <!-- Define arguments for the bagfile path and duration -->
+    <arg name="bagfile_path"/>
+    <arg name="duration" default="60"/>
+
+    <!-- Record topics with the specified duration and output directory -->
+    <node pkg="rosbag" type="record" name="record_visual" output="screen" args="
+        /planning_vis/trajectory
+        /planning/travel_traj
+        /planning/position_cmd_vis
+        /planning_vis/frontier
+        /planning_vis/viewpoints
+        /planning_vis/history_pos_graph_marker
+
+        /planning_vis/dynamic_expanding_grid
+        /planning_vis/relevant_graph_markers
+        /planning_vis/first_grid_neighbor_centroids
+        /planning_vis/first_grid_centroids
+        /planning_vis/incremental_global_planning
+        
+        /quad0_odom_visualization/robot
+        /quad_0/lidar_slam/init_odom
+
+        -O $(arg bagfile_path)
+        --duration=$(arg duration)
+    "/>
+
+</launch>

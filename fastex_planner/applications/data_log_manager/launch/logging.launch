@@ -1,0 +1,34 @@
+<launch>
+  <arg name="odometry_topic" default="/quad_0/lidar_slam/odom" />
+  <arg name="scene_name" default="cave" />
+  <arg name="is_logging" default="false" />
+  <arg name="is_launch_data_vis" default="true" />
+  <arg name="exploration_data_topic"
+       default="/exploration_data_visualization/explored_volume_traved_dist_time" />
+  <arg name="total_run_time_topic" default="/exploration_data_visualization/expl_total_run_time" />
+  <arg name="preprocess_run_time_topic"
+       default="/exploration_data_visualization/expl_preprocess_run_time" />
+  <arg name="motion_run_time_topic" default="/exploration_data_visualization/expl_motion_run_time" />
+
+  <node pkg="data_log_manager" type="data_log_manager_node" name="data_log_manager_node" output="log">
+    <remap from="~odometry" to="$(arg odometry_topic)" />
+    <remap from="~exploration_data" to="$(arg exploration_data_topic)" />
+    <remap from="~explore_iteration_time" to="$(arg total_run_time_topic)" />
+    <remap from="~explore_preprocess_time" to="$(arg preprocess_run_time_topic)" />
+    <remap from="~explore_motion_time" to="$(arg motion_run_time_topic)" />
+
+    <param name="logs_dir_path" value="$(find data_log_manager)/exploration_data_files/$(arg scene_name)" />
+    <param name="enable_file_logging" value="$(arg is_logging)" />
+  </node>
+
+  <group if="$(arg is_launch_data_vis)">
+    <include file="$(find data_log_manager)/launch/vis.launch">
+      <arg name="odometry_topic" value="$(arg odometry_topic)" />
+      <arg name="exploration_data_topic" value="$(arg exploration_data_topic)" />
+      <arg name="total_run_time_topic" value="$(arg total_run_time_topic)" />
+      <arg name="preprocess_run_time_topic" value="$(arg preprocess_run_time_topic)" />
+      <arg name="motion_run_time_topic" value="$(arg motion_run_time_topic)" />
+    </include>
+  </group>
+
+</launch>

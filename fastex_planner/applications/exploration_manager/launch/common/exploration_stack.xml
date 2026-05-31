@@ -1,0 +1,92 @@
+<launch>
+  <arg name="scene_name"/>
+  <arg name="sim_launch"/>
+  <arg name="map_process_config"/>
+
+  <arg name="is_launch_rviz" default="true"/>
+  <arg name="is_logging" default="false"/>
+  <arg name="is_launch_data_vis" default="true"/>
+  <arg name="auto_start" default="true"/>
+
+  <arg name="drone_id" default="0"/>
+
+  <arg name="map_size_x"/>
+  <arg name="map_size_y"/>
+  <arg name="map_size_z"/>
+  <arg name="ground_height"/>
+
+  <arg name="box_min_x"/>
+  <arg name="box_min_y"/>
+  <arg name="box_min_z"/>
+  <arg name="box_max_x"/>
+  <arg name="box_max_y"/>
+  <arg name="box_max_z"/>
+
+  <arg name="sdf_resolution" default="0.4"/>
+  <arg name="sdf_max_ray_length" default="15.0"/>
+
+  <arg name="init_x" default="0.0"/>
+  <arg name="init_y" default="0.0"/>
+  <arg name="init_z"/>
+
+  <arg name="max_vel" default="2.0"/>
+  <arg name="max_acc" default="1.5"/>
+  <arg name="odom_topic" default="/quad_0/lidar_slam/odom"/>
+  <arg name="cloud_topic" default="/quad0_pcl_render_node/cloud_all"/>
+  <arg name="real_cloud_topic" default="/quad0_pcl_render_node/cloud"/>
+  <arg name="virtual_cloud_topic" default="/quad0_pcl_render_node/cloud_virtual"/>
+
+  <include file="$(find exploration_manager)/launch/common/algorithm.xml">
+    <arg name="auto_start" value="$(arg auto_start)"/>
+    <arg name="drone_id" value="$(arg drone_id)"/>
+    <arg name="map_size_x" value="$(arg map_size_x)"/>
+    <arg name="map_size_y" value="$(arg map_size_y)"/>
+    <arg name="map_size_z" value="$(arg map_size_z)"/>
+    <arg name="ground_height" value="$(arg ground_height)"/>
+    <arg name="sdf_resolution" value="$(arg sdf_resolution)"/>
+    <arg name="sdf_max_ray_length" value="$(arg sdf_max_ray_length)"/>
+    <arg name="init_x" value="$(arg init_x)"/>
+    <arg name="init_y" value="$(arg init_y)"/>
+    <arg name="init_z" value="$(arg init_z)"/>
+    <arg name="box_min_x" value="$(arg box_min_x)"/>
+    <arg name="box_min_y" value="$(arg box_min_y)"/>
+    <arg name="box_min_z" value="$(arg box_min_z)"/>
+    <arg name="box_max_x" value="$(arg box_max_x)"/>
+    <arg name="box_max_y" value="$(arg box_max_y)"/>
+    <arg name="box_max_z" value="$(arg box_max_z)"/>
+    <arg name="odom_topic" value="$(arg odom_topic)"/>
+    <arg name="cloud_topic" value="$(arg cloud_topic)"/>
+    <arg name="real_cloud_topic" value="$(arg real_cloud_topic)"/>
+    <arg name="virtual_cloud_topic" value="$(arg virtual_cloud_topic)"/>
+    <arg name="max_vel" value="$(arg max_vel)"/>
+    <arg name="max_acc" value="$(arg max_acc)"/>
+    <arg name="map_process_config" value="$(arg map_process_config)"/>
+  </include>
+
+  <node pkg="plan_manage" name="traj_server" type="traj_server">
+    <remap from="/position_cmd" to="planning/pos_cmd"/>
+    <remap from="/odom_world" to="$(arg odom_topic)"/>
+    <param name="traj_server/time_forward" value="1.5" type="double"/>
+    <param name="traj_server/pub_traj_id" value="4" type="int"/>
+    <param name="traj_server/init_x" value="$(arg init_x)" type="double"/>
+    <param name="traj_server/init_y" value="$(arg init_y)" type="double"/>
+    <param name="traj_server/init_z" value="$(arg init_z)" type="double"/>
+  </node>
+
+  <include file="$(arg sim_launch)">
+    <arg name="init_x" value="$(arg init_x)"/>
+    <arg name="init_y" value="$(arg init_y)"/>
+    <arg name="init_z" value="$(arg init_z)"/>
+  </include>
+
+  <include file="$(find data_log_manager)/launch/logging.launch">
+    <arg name="odometry_topic" value="$(arg odom_topic)"/>
+    <arg name="scene_name" value="$(arg scene_name)"/>
+    <arg name="is_logging" value="$(arg is_logging)"/>
+    <arg name="is_launch_data_vis" value="$(arg is_launch_data_vis)"/>
+  </include>
+
+  <group if="$(arg is_launch_rviz)">
+    <include file="$(find exploration_manager)/launch/rviz_sim.launch"/>
+  </group>
+</launch>

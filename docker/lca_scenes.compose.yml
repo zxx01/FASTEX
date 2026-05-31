@@ -1,0 +1,63 @@
+name: lca_scenes
+
+x-lca-scene-common: &lca-scene-common
+  image: ${LCA_IMAGE:-ros:fastex_experiment}
+  user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+  privileged: true
+  init: true
+  restart: "no"
+  working_dir: ${HOST_FASTEX_WS:?Set HOST_FASTEX_WS to absolute FASTEX_ws path}/src/LCAExplorer
+  volumes:
+    - ${HOST_FASTEX_WS:?Set HOST_FASTEX_WS to absolute FASTEX_ws path}:${HOST_FASTEX_WS:?Set HOST_FASTEX_WS to absolute FASTEX_ws path}
+    - /dev:/dev
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    - ${DOCKER_XAUTH:-/tmp/.docker.xauth}:${DOCKER_XAUTH:-/tmp/.docker.xauth}:ro
+  environment: &lca-scene-env
+    DISPLAY: "${DISPLAY:-}"
+    HOME: "/tmp"
+    QT_X11_NO_MITSHM: "1"
+    ROS_HOME: "/tmp/.ros"
+    XAUTHORITY: "${DOCKER_XAUTH:-/tmp/.docker.xauth}"
+    IS_LAUNCH_RVIZ: "${IS_LAUNCH_RVIZ:-true}"
+    IS_LOGGING: "${IS_LOGGING:-true}"
+    IS_LAUNCH_DATA_VIS: "${IS_LAUNCH_DATA_VIS:-true}"
+
+services:
+  lca_cave:
+    <<: *lca-scene-common
+    environment:
+      <<: *lca-scene-env
+      SCENE_NAME: cave
+    command:
+      - /bin/bash
+      - -lc
+      - |
+        mkdir -p "$${ROS_HOME:-/tmp/.ros}/log"
+        source "${HOST_FASTEX_WS:?Set HOST_FASTEX_WS to absolute FASTEX_ws path}/devel/setup.bash"
+        exec roslaunch exploration_manager cave_exploration.launch is_launch_rviz:=${IS_LAUNCH_RVIZ:-true} is_logging:=${IS_LOGGING:-true} is_launch_data_vis:=${IS_LAUNCH_DATA_VIS:-true}
+
+  lca_forest:
+    <<: *lca-scene-common
+    environment:
+      <<: *lca-scene-env
+      SCENE_NAME: forest
+    command:
+      - /bin/bash
+      - -lc
+      - |
+        mkdir -p "$${ROS_HOME:-/tmp/.ros}/log"
+        source "${HOST_FASTEX_WS:?Set HOST_FASTEX_WS to absolute FASTEX_ws path}/devel/setup.bash"
+        exec roslaunch exploration_manager forest_exploration.launch is_launch_rviz:=${IS_LAUNCH_RVIZ:-true} is_logging:=${IS_LOGGING:-true} is_launch_data_vis:=${IS_LAUNCH_DATA_VIS:-true}
+
+  lca_indoor:
+    <<: *lca-scene-common
+    environment:
+      <<: *lca-scene-env
+      SCENE_NAME: indoor
+    command:
+      - /bin/bash
+      - -lc
+      - |
+        mkdir -p "$${ROS_HOME:-/tmp/.ros}/log"
+        source "${HOST_FASTEX_WS:?Set HOST_FASTEX_WS to absolute FASTEX_ws path}/devel/setup.bash"
+        exec roslaunch exploration_manager indoor_exploration.launch is_launch_rviz:=${IS_LAUNCH_RVIZ:-true} is_logging:=${IS_LOGGING:-true} is_launch_data_vis:=${IS_LAUNCH_DATA_VIS:-true}

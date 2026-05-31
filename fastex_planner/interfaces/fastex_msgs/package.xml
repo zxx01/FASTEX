@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fastex_msgs</name>
+  <version>0.0.0</version>
+  <description>Message and service definitions for FastEx exploration packages.</description>
+  <maintainer email="zxx@todo.todo">zxx</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <depend>std_msgs</depend>
+  <exec_depend>message_runtime</exec_depend>
+</package>

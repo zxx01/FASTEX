@@ -1,0 +1,49 @@
+DynamicExpandingGrid:
+  frame_id: world
+  min_set_x: -100.0
+  min_set_y: -150.0
+  min_set_z: -80.0
+  max_set_x: 300.0
+  max_set_y: 100.0
+  max_set_z: 20.0
+  initial_grid_resolution_x: 16.0
+  initial_grid_resolution_y: 16.0
+  initial_grid_resolution_z: 10.0
+
+FrontierManager:
+  frame_id: world
+  min_visible_voxel_num: 15
+  min_cluster_voxel_num: 30
+  max_cluster_radius: 8.0
+  min_candidate_clearance: 1.0
+  frontier_filter_ratio: 3.0
+  upper_fov_angle: 30.0
+  lower_fov_angle: -30.0
+  # upper_fov_angle: 52.0
+  # lower_fov_angle: -7.0
+  min_view_finish_fraction: 0.5
+  frontier_clear_threshold: 0.0
+
+  # Viewpoint candidate parameters
+  candidate_rmin: 1.0 # Minimum radius of the cylinder
+  candidate_rmax: 3.0 # Maximum radius of the cylinder
+  candidate_hmin: -2.0 # Minimum height of the cylinder
+  candidate_hmax: 2.0 # Maximum height of the cylinder
+  candidate_rstep: 1.0 # Step size of the radius
+  candidate_hstep: 1.0 # Step size of the height
+  candidate_theta_step: 0.5236 # Step size of the angle
+  candidate_kr: 0.0 # Growth rate of the step size in the radius direction
+  candidate_kh: 0.0 # Growth rate of the step size in the height direction
+  candidate_ktheta: 0.0 # Growth rate of the step size in the angle
+
+  refined_viewpoint_num: 10
+
+WSRoadmap:
+  frame_id: world
+  sample_dist: 1.5 # horizontal sampling interval
+  min_interval: 2.5 # minimum interval between horizontal points on the graph
+  bound_margin: 0.5 # minimum distance from the ESDF bounding box in horizontal plane
+  connectable_range: 4.0
+  connectable_num: 6
+  points_dist_to_occupied: 0.5 # minimum distance from valid point to occupied voxels
+  points_dist_to_unknown: 0.5 # minimum distance from valid point to unknown voxels

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>test_interface</name>
+  <version>0.0.0</version>
+  <description>Launch and command bridge package for simulated drone interfaces.</description>
+
+  <maintainer email="jackykong@todo.todo">jackykong</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>geometry_msgs</depend>
+  <depend>quadrotor_msgs</depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>tf</depend>
+</package>

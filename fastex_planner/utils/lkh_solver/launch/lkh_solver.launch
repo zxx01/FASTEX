@@ -1,0 +1,10 @@
+<launch>
+  <arg name="tsp_dir"/>
+  <arg name="drone_id"/>
+
+  <node pkg="lkh_solver" name="lkh_solver_node" type="lkh3_solver_node" output="log">
+    <param name="tsp_dir" value="$(arg tsp_dir)" type="string"/>
+    <param name="drone_id" value="$(arg drone_id)" type="int"/>
+  </node>
+  
+</launch>

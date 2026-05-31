@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<launch>
+
+    <arg name="bagfile_path"/>
+
+    <node pkg="rosbag" type="record" name="record_expl_data" output="screen" args="
+        -ao $(arg bagfile_path)"/>
+
+</launch>

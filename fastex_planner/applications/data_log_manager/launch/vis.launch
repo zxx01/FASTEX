@@ -1,0 +1,21 @@
+<launch>
+  <arg name="odometry_topic" default="/quad_0/lidar_slam/odom" />
+  <arg name="exploration_data_topic"
+       default="/exploration_data_visualization/explored_volume_traved_dist_time" />
+  <arg name="total_run_time_topic" default="/exploration_data_visualization/expl_total_run_time" />
+  <arg name="preprocess_run_time_topic"
+       default="/exploration_data_visualization/expl_preprocess_run_time" />
+  <arg name="motion_run_time_topic" default="/exploration_data_visualization/expl_motion_run_time" />
+
+  <node pkg="data_log_manager" type="realTimePlot.py" name="realTimePlot" output="log" respawn="true">
+    <param name="exploration_data_topic" value="$(arg exploration_data_topic)" />
+    <param name="total_run_time_topic" value="$(arg total_run_time_topic)" />
+    <param name="preprocess_run_time_topic" value="$(arg preprocess_run_time_topic)" />
+    <param name="motion_run_time_topic" value="$(arg motion_run_time_topic)" />
+  </node>
+
+  <node pkg="data_log_manager" type="OdomVisualizer.py" name="OdomVisualizer" output="log" respawn="true">
+    <param name="odometry_topic" value="$(arg odometry_topic)" />
+  </node>
+
+</launch>

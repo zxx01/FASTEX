@@ -1,0 +1,71 @@
+<launch>
+  <arg name="is_launch_rviz" default="true"/>
+  <arg name="is_logging" default="false"/>
+  <arg name="is_launch_data_vis" default="true"/>
+  <arg name="auto_start" default="true"/>
+
+  <arg name="drone_id" default="0"/>
+  <arg name="odom_topic" default="/quad_0/lidar_slam/odom"/>
+  <arg name="cloud_topic" default="/quad0_pcl_render_node/cloud_all"/>
+  <arg name="real_cloud_topic" default="/quad0_pcl_render_node/cloud"/>
+  <arg name="virtual_cloud_topic" default="/quad0_pcl_render_node/cloud_virtual"/>
+
+  <arg name="init_x" default="0.0"/>
+  <arg name="init_y" default="0.0"/>
+  <arg name="init_z" default="1.5"/>
+
+  <arg name="max_vel" default="2.0"/>
+  <arg name="max_acc" default="1.5"/>
+
+  <arg name="map_size_x" default="800"/>
+  <arg name="map_size_y" default="800"/>
+  <arg name="map_size_z" default="20"/>
+  <arg name="ground_height" default="0.0"/>
+
+  <arg name="box_min_x" default="-15.0"/>
+  <arg name="box_min_y" default="-100.0"/>
+  <arg name="box_min_z" default="0.0"/>
+  <arg name="box_max_x" default="400.0"/>
+  <arg name="box_max_y" default="250.0"/>
+  <arg name="box_max_z" default="7.5"/>
+
+  <arg name="sdf_resolution" default="0.4"/>
+  <arg name="sdf_max_ray_length" default="15.0"/>
+
+  <include file="$(find exploration_manager)/launch/common/exploration_stack.xml">
+    <arg name="scene_name" value="indoor"/>
+    <arg name="sim_launch" value="$(find test_interface)/launch/envs/single_mid360_indoor.launch"/>
+    <arg name="map_process_config" value="$(find map_process)/resources/config_indoor.yaml"/>
+
+    <arg name="is_launch_rviz" value="$(arg is_launch_rviz)"/>
+    <arg name="is_logging" value="$(arg is_logging)"/>
+    <arg name="is_launch_data_vis" value="$(arg is_launch_data_vis)"/>
+    <arg name="auto_start" value="$(arg auto_start)"/>
+    <arg name="drone_id" value="$(arg drone_id)"/>
+    <arg name="odom_topic" value="$(arg odom_topic)"/>
+    <arg name="cloud_topic" value="$(arg cloud_topic)"/>
+    <arg name="real_cloud_topic" value="$(arg real_cloud_topic)"/>
+    <arg name="virtual_cloud_topic" value="$(arg virtual_cloud_topic)"/>
+
+    <arg name="map_size_x" value="$(arg map_size_x)"/>
+    <arg name="map_size_y" value="$(arg map_size_y)"/>
+    <arg name="map_size_z" value="$(arg map_size_z)"/>
+    <arg name="ground_height" value="$(arg ground_height)"/>
+
+    <arg name="box_min_x" value="$(arg box_min_x)"/>
+    <arg name="box_min_y" value="$(arg box_min_y)"/>
+    <arg name="box_min_z" value="$(arg box_min_z)"/>
+    <arg name="box_max_x" value="$(arg box_max_x)"/>
+    <arg name="box_max_y" value="$(arg box_max_y)"/>
+    <arg name="box_max_z" value="$(arg box_max_z)"/>
+
+    <arg name="sdf_resolution" value="$(arg sdf_resolution)"/>
+    <arg name="sdf_max_ray_length" value="$(arg sdf_max_ray_length)"/>
+
+    <arg name="init_x" value="$(arg init_x)"/>
+    <arg name="init_y" value="$(arg init_y)"/>
+    <arg name="init_z" value="$(arg init_z)"/>
+    <arg name="max_vel" value="$(arg max_vel)"/>
+    <arg name="max_acc" value="$(arg max_acc)"/>
+  </include>
+</launch>

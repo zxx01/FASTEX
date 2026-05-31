@@ -1,0 +1,2 @@
+float64 resolution
+uint32 known_cell_num

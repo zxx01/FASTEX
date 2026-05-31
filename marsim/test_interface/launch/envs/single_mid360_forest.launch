@@ -1,0 +1,58 @@
+<launch>
+    <arg name="use_gpu_" value="false"/>
+
+    <arg name="init_x"/>
+    <arg name="init_y"/>
+    <arg name="init_z"/> 
+
+    <arg name="drone_num" value="1"/>
+
+    <arg name="frame_id" value="world"/>
+    <arg name="global_cloud_topic" value="/map_generator/global_cloud"/>
+    <arg name="odom_topic" value="/lidar_slam/odom"/>
+    <arg name="init_odom_topic" value="/lidar_slam/init_odom"/>
+
+    <arg name="vis_map_name" value="$(find map_generator)/resource/forest_ds.pcd"/>
+    <arg name="sim_map_name" value="$(find map_generator)/resource/forest_ds.pcd"/>
+
+    <arg name="vis_downsample_resolution" value="0.2"/>
+    <arg name="process_downsample_resolution" value="0.2"/>
+
+    <arg name="use_uav_extra_model" value = "1"/>
+
+    <group if="$(arg use_gpu_)">
+        <node pkg="map_generator" name="map_pub1" type="map_pub" output="screen"
+                args="$(arg vis_map_name)">
+                <param name="downsample_res" value="0.1"/>         
+                <param name="map_offset_x" value="0.0"/>   
+                <param name="map_offset_y" value="0.0"/>   
+                <param name="map_offset_z" value="0.0"/>   
+        </node>  
+    </group>
+    <group unless="$(arg use_gpu_)">
+        <node pkg="map_generator" name="map_pub2" type="map_pub" output="screen"
+                args="$(arg vis_map_name)">
+                <param name="downsample_res" value="$(arg vis_downsample_resolution)"/>
+                <param name="map_offset_x" value="0.0"/>   
+                <param name="map_offset_y" value="0.0"/>   
+                <param name="map_offset_z" value="0.0"/>   
+        </node>  
+    </group>
+
+    <include file="$(find test_interface)/launch/single_drone_with_fuel.xml">
+        <arg name="drone_id" value="0"/>
+        <arg name="uav_num_" value="$(arg drone_num)"/>
+        <arg name="lidar_type" value="mid360"/>
+        <arg name="init_x_" value="$(arg init_x)"/>
+        <arg name="init_y_" value="$(arg init_y)"/>
+        <arg name="init_z_" value="$(arg init_z)"/>
+        <arg name="init_yaw" value="0.0"/>
+        <arg name="map_name_" value="$(arg sim_map_name)"/>
+        <arg name="downsample_resolution_" value="$(arg process_downsample_resolution)"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+        <arg name="init_odom_topic" value="$(arg init_odom_topic)"/>
+        <arg name="use_gpu" value="$(arg use_gpu_)"/>
+        <arg name="use_uav_extra_model_" value="$(arg use_uav_extra_model)"/>
+    </include>
+
+</launch>

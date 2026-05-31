@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>traj_utils</name>
+  <version>0.0.0</version>
+  <description>The traj_utils package</description>
+  <maintainer email="bzhouai@todo.todo">bzhouai</maintainer>
+  <license>TODO</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>bspline</depend>
+  <depend>plan_env</depend>
+  <depend>path_searching</depend>
+  <depend>poly_traj</depend>
+  <depend>roscpp</depend>
+  <depend>geometry_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>vis_utils</depend>
+</package>

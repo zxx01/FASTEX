@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>data_log_manager</name>
+  <version>0.0.0</version>
+  <description>Logging, aggregation, and visualization support for FASTEX exploration experiments.</description>
+  <maintainer email="xiaoxunz888@qq.com">Xiaoxun Zhang</maintainer>
+  <license>GPL-3.0</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>rospy</depend>
+  <depend>roslib</depend>
+  <depend>std_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>fastex_msgs</depend>
+  <depend>file_utils</depend>
+  <depend>time_utils</depend>
+  <depend>process_utils</depend>
+</package>

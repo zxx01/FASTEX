@@ -1,0 +1,14 @@
+.vscode/*
+.codex
+AGENTS.md
+cmake-build-*/
+**/cmake-build-*/
+bags/*
+marsim/cascadePID/data/*
+marsim/map_generator/resource/*
+fastex_planner/applications/data_log_manager/exploration_data_files/*
+fastex_planner/utils/lkh_solver/resources/*
+
+!marsim/map_generator/resource/.gitkeep
+!fastex_planner/applications/data_log_manager/exploration_data_files/.gitkeep
+!fastex_planner/utils/lkh_solver/resources/.gitkeep

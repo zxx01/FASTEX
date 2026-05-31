@@ -1,0 +1,54 @@
+---
+# We'll use defaults from the LLVM style, but with 4 columns indentation.
+BasedOnStyle: LLVM
+IndentWidth: 4
+---
+Language: Cpp
+# Force pointers to the type for C++.
+DerivePointerAlignment: false
+PointerAlignment: Left
+ColumnLimit: 100
+
+# 大括号换行，只有当BreakBeforeBraces设置为Custom时才有效
+BraceWrapping:   
+  # 在case后的大括号是否换行
+  AfterCaseLabel:  true
+  # class后
+  AfterClass:      true
+  # 控制语句(if/for/while/switch/...)后是否换行
+  # - Never: 永远不, 即永远将语句体的大括号放置于控制语句同一行
+  # - MultiLine: 多行控制语句才进行换行
+  # - Always: 永远换行, 建议
+  AfterControlStatement: Always
+  # 下面比较容易理解, 不再作无意义的解释
+  AfterEnum:       true
+  AfterFunction:   true
+  AfterNamespace:  true
+  AfterObjCDeclaration: true
+  AfterStruct:     true
+  AfterUnion:      true
+  AfterExternBlock: true
+  BeforeCatch:     false
+  BeforeElse:      true
+  BeforeLambdaBody: false
+  BeforeWhile:     false
+  IndentBraces:    false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
+BreakBeforeBraces:  Custom
+
+---
+Language: JavaScript
+# Use 100 columns for JS.
+ColumnLimit: 100
+---
+Language: Proto
+# Don't format .proto files.
+DisableFormat: true
+---
+Language: CSharp
+# Use 100 columns for C#.
+ColumnLimit: 100
+...
